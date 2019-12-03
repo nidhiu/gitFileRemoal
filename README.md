@@ -33,20 +33,19 @@ scp -r $cvsusername@10.20.20.20:/usr/webdev/cvsroot/$module cvs
 ```
 Where 10.20.20.20 = IP address of CVS server.
 
-## Step 2 - Run git cvsimport
+## Step 2 - Run git cvs2git
 ```bash
-# filter is a set of python regular expressions separated by '|', NOT a file glob.
-filter='.*jar|databaseConfig.*|secrets.properties|keysHelper.*'
-( mkdir -p git/"$module" && cd git/"$module" && git cvsimport -v -a -k -S "$filter" -d `realpath ../..`/cvs "$module" )
+cvs2git \
+			--blobfile=cvs2svn-tmp/git-blob.dat \
+			--dumpfile=cvs2svn-tmp/git-dump.dat \
+			--username=$cvsUsername \
+			cvs/$cvsAppName
+			
+		mkdir -p git/"$gitRepoName".git  && cd git/"$gitRepoName".git && git init --bare
+		cat  ../../cvs2svn-tmp/git-blob.dat  ../../cvs2svn-tmp/git-dump.dat | git fast-import
+		
+		cd ../ && git clone "$gitRepoName".git  $gitRepoName && rm -rf "$gitRepoName".git  && cd $gitRepoName
 ```
-
-
-```-v``` verbose
-```-a``` all
-```-k``` kill keywords
-```-d``` the cvsroot directory; with a remote pserver, this would be something like ```:pserver:NidhiU@10.20.20.20:/usr/webdev/cvsroot```
-```-S``` skip files using (python) regular expression; in this case I intend to convert this project to maven, so I've excluded jar files as well as config files which contain passwords and filtering step is completely optional.
-
 
 # Troubleshooting
 ### Check Versions
