@@ -36,15 +36,15 @@ Where 10.20.20.20 = IP address of CVS server.
 ## Step 2 - Run git cvs2git
 ```bash
 cvs2git \
-			--blobfile=cvs2svn-tmp/git-blob.dat \
-			--dumpfile=cvs2svn-tmp/git-dump.dat \
-			--username=$cvsUsername \
-			cvs/$cvsAppName
+   --blobfile=cvs2svn-tmp/git-blob.dat \
+   --dumpfile=cvs2svn-tmp/git-dump.dat \
+   --username=$cvsUsername \
+cvs/$cvsAppName
 			
-		mkdir -p git/"$gitRepoName".git  && cd git/"$gitRepoName".git && git init --bare
-		cat  ../../cvs2svn-tmp/git-blob.dat  ../../cvs2svn-tmp/git-dump.dat | git fast-import
+mkdir -p git/"$gitRepoName".git  && cd git/"$gitRepoName".git && git init --bare
+cat  ../../cvs2svn-tmp/git-blob.dat  ../../cvs2svn-tmp/git-dump.dat | git fast-import
 		
-		cd ../ && git clone "$gitRepoName".git  $gitRepoName && rm -rf "$gitRepoName".git  && cd $gitRepoName
+cd ../ && git clone "$gitRepoName".git  $gitRepoName && rm -rf "$gitRepoName".git  && cd $gitRepoName
 ```
 
 # Troubleshooting
