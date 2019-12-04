@@ -1,5 +1,5 @@
 # gitFileRemoal
-This is for removal of files before from GIT repository during conversion from CVS using Cygwin's cvs2git module.
+This is for removal of files before pushing to GIT repository during migration source from CVS using Cygwin's cvs2git module.
 
 # Secret Removal from file/s.
 This is for removal of secret(password, ip, key, etc) from GIT repository using Cygwin's cvs2git module.
